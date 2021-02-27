@@ -34,5 +34,18 @@ int main(){
   while(read(in, &c, 1) == 1){
     write(out, &c, 1);
   }
-  exit(EXIT_SUCCESS);
+
+  if(close(out) == 0){
+    if(close(in) == 0){
+      exit(EXIT_SUCCESS);
+    }
+    else{
+      fprintf(stderr, "Error in closing in file: %d\n", errnum);    
+      exit(EXIT_FAILURE);
+    }
+  }
+  else{
+    fprintf(stderr, "Error in closing out file: %d\n", errnum);
+    exit(EXIT_FAILURE);
+  }
 }
